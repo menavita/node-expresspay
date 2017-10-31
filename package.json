@@ -1,0 +1,23 @@
+{
+  "name": "node-expresspay",
+  "version": "0.0.0",
+  "description": "Node module for using Expresspay api.",
+  "main": "index.js",
+  "scripts": {
+    "eriptest": "mocha --timeout 5000 test/erip.js",
+    "cardtest": "mocha --timeout 5000 test/card.js"
+  },
+  "keywords": [
+    "expresspay"
+  ],
+  "author": "noglik",
+  "license": "MIT",
+  "dependencies": {
+    "q": "^1.5.1",
+    "request": "^2.83.0"
+  },
+  "devDependencies": {
+    "mocha": "^4.0.1",
+    "should": "^13.1.2"
+  }
+}
