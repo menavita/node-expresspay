@@ -35,7 +35,7 @@ Expresspay.prototype.createInvoiceErip = function(params) {
 
 }
 
-Expresspay.prototype.getInvoiceListErip = function(params) {
+Expresspay.prototype.getInvoicesListErip = function(params) {
 
   var default_params = {
     "From": '',
@@ -56,7 +56,7 @@ Expresspay.prototype.getInvoiceListErip = function(params) {
     uri: !this.secret_word 
     ? this.url + 'invoices/?token=' + this.token
       + '&From=' + params.From + '&To=' + params.To + '&AccountNo=' + params.AccountNo + '&Status=' + params.Status
-    : this.url + 'invoices/?token=' + this.token + '&signature=' + сreateSignature('get_invoice_list_erip', this.token, this.secret_word, params)
+    : this.url + 'invoices/?token=' + this.token + '&signature=' + сreateSignature('get_invoices_list_erip', this.token, this.secret_word, params)
       + '&From=' + params.From + '&To=' + params.To + '&AccountNo=' + params.AccountNo + '&Status=' + params.Status,
     encoding: 'UTF-8',
   }, function(err, res, body) {
@@ -116,7 +116,7 @@ Expresspay.prototype.getInvoiceStatusErip = function(params) {
 
 }
 
-Expresspay.prototype.getPaymentListErip = function(params) {
+Expresspay.prototype.getPaymentsListErip = function(params) {
 
   var default_params = {
     "From": '',
@@ -136,7 +136,7 @@ Expresspay.prototype.getPaymentListErip = function(params) {
     uri: !this.secret_word 
     ? this.url + 'payments/?token=' + this.token
       + '&From=' + params.From + '&To=' + params.To + '&AccountNo=' + params.AccountNo
-    : this.url + 'payments/?token=' + this.token + '&signature=' + сreateSignature('get_payment_list_erip', this.token, this.secret_word, params)
+    : this.url + 'payments/?token=' + this.token + '&signature=' + сreateSignature('get_payments_list_erip', this.token, this.secret_word, params)
       + '&From=' + params.From + '&To=' + params.To + '&AccountNo=' + params.AccountNo,
     encoding: 'UTF-8',
   }, function(err, res, body) {
@@ -174,14 +174,14 @@ Expresspay.prototype.getPaymentDetailsErip = function(params) {
 
 }
 
-Expresspay.prototype.deleteInvoiceErip = function(params) {
+Expresspay.prototype.cancelInvoiceErip = function(params) {
 
   var d = Q.defer();
   
   request.delete({
     uri: !this.secret_word 
       ? this.url + 'invoices/' + params.InvoiceNo + '/?token=' + this.token
-      : this.url + 'invoices/' + params.InvoiceNo + '/?token=' + this.token + '&signature=' + сreateSignature('delete_invoice_erip', this.token, this.secret_word, params),
+      : this.url + 'invoices/' + params.InvoiceNo + '/?token=' + this.token + '&signature=' + сreateSignature('cancel_invoice_erip', this.token, this.secret_word, params),
     encoding: 'UTF-8',
   }, function(err, res, body) {
     body = JSON.parse(body);
@@ -308,7 +308,7 @@ function сreateSignature(type, token, secret_word, data) {
       "EmailNotifacation",
       "SmsPhone"
     ],
-    "get_invoice_list_erip": [
+    "get_invoices_list_erip": [
       "From",
       "To",
       "AccountNo",
@@ -320,7 +320,7 @@ function сreateSignature(type, token, secret_word, data) {
     "get_invoice_status_erip": [
       "InvoiceNo"
     ],
-    "get_payment_list_erip": [
+    "get_payments_list_erip": [
       "From",
       "To",
       "AccountNo"
@@ -328,7 +328,7 @@ function сreateSignature(type, token, secret_word, data) {
     "get_payment_details_erip": [
       "AccountNo"
     ],
-    "delete_invoice_erip": [
+    "cancel_invoice_erip": [
       "InvoiceNo"
     ],
     "create_invoice_card": [

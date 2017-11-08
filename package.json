@@ -7,6 +7,14 @@
     "eriptest": "mocha --timeout 5000 test/erip.js",
     "cardtest": "mocha --timeout 5000 test/card.js"
   },
+  "repository": {
+    "type": "git",
+    "url": "git+ssh://git@github.com:menavita/node-expresspay.git"
+  },
+  "bugs": {
+    "url": "https://github.com/menavita/node-expresspay/issues"
+  },
+  "homepage": "https://github.com/menavita/node-expresspay#readme",
   "keywords": [
     "expresspay"
   ],

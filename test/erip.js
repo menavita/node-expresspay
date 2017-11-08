@@ -31,7 +31,7 @@ describe('Create ERIP payment', function() {
 describe('Get invoice', function() {
 
   it('should return list of invoices by params', function() {
-    return expresspay.getInvoiceListErip({ "AccountNo": 100, "Status": 1 })
+    return expresspay.getInvoicesListErip({ "AccountNo": 100, "Status": 1 })
     .then(function(res) {
       console.log(res);
       res.should.have.property('Items')
@@ -69,7 +69,7 @@ describe('Get invoice', function() {
 
 describe('Get payments', function() {
   it('should return payments list by params', function() {
-    return expresspay.getPaymentListErip({})
+    return expresspay.getPaymentsListErip({})
       .then(function(res) {
         console.log(res);
         res.should.have.property('Items');
@@ -93,9 +93,9 @@ describe('Get payments', function() {
   })
 })
 
-describe('Delete invoice', function() {
-  it('should delete invoice by InvoiceNo', function() {
-    return expresspay.deleteInvoiceErip({"InvoiceNo": 10})
+describe('Cancel invoice', function() {
+  it('should cancel invoice by InvoiceNo', function() {
+    return expresspay.cancelInvoiceErip({"InvoiceNo": 10})
       .then(function(res) {
         console.log(res);
       })
