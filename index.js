@@ -12,7 +12,7 @@ function Expresspay(url, token, secret_word) {
 
 }
 
-Expresspay.prototype.createInvoiceErip = function(params) {
+Expresspay.prototype.createInvoiceERIP = function(params) {
 
   var d = Q.defer();
   
@@ -35,7 +35,7 @@ Expresspay.prototype.createInvoiceErip = function(params) {
 
 }
 
-Expresspay.prototype.getInvoicesListErip = function(params) {
+Expresspay.prototype.getInvoicesListERIP = function(params) {
 
   var default_params = {
     "From": '',
@@ -72,7 +72,7 @@ Expresspay.prototype.getInvoicesListErip = function(params) {
 
 }
 
-Expresspay.prototype.getInvoiceDetailsErip = function(params) {
+Expresspay.prototype.getInvoiceDetailsERIP = function(params) {
 
   var d = Q.defer();
 
@@ -94,7 +94,7 @@ Expresspay.prototype.getInvoiceDetailsErip = function(params) {
 
 }
 
-Expresspay.prototype.getInvoiceStatusErip = function(params) {
+Expresspay.prototype.getInvoiceStatusERIP = function(params) {
 
   var d = Q.defer();
 
@@ -116,7 +116,7 @@ Expresspay.prototype.getInvoiceStatusErip = function(params) {
 
 }
 
-Expresspay.prototype.getPaymentsListErip = function(params) {
+Expresspay.prototype.getPaymentsListERIP = function(params) {
 
   var default_params = {
     "From": '',
@@ -152,7 +152,7 @@ Expresspay.prototype.getPaymentsListErip = function(params) {
 
 }
 
-Expresspay.prototype.getPaymentDetailsErip = function(params) {
+Expresspay.prototype.getPaymentDetailsERIP = function(params) {
 
   var d = Q.defer();
   
@@ -174,7 +174,7 @@ Expresspay.prototype.getPaymentDetailsErip = function(params) {
 
 }
 
-Expresspay.prototype.cancelInvoiceErip = function(params) {
+Expresspay.prototype.cancelInvoiceERIP = function(params) {
 
   var d = Q.defer();
   

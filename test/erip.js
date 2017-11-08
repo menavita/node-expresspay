@@ -10,7 +10,7 @@ var expresspay = new Expresspay('https://sandbox-api.express-pay.by/v1/', 'a75b7
 
 describe('Create ERIP payment', function() {
   it('should return invoice number', function() {
-    return expresspay.createInvoiceErip({
+    return expresspay.createInvoiceERIP({
       "AccountNo": 10,
       "Amount": 20,
       "Currency": 933,
@@ -31,7 +31,7 @@ describe('Create ERIP payment', function() {
 describe('Get invoice', function() {
 
   it('should return list of invoices by params', function() {
-    return expresspay.getInvoicesListErip({ "AccountNo": 100, "Status": 1 })
+    return expresspay.getInvoicesListERIP({ "AccountNo": 100, "Status": 1 })
     .then(function(res) {
       console.log(res);
       res.should.have.property('Items')
@@ -43,7 +43,7 @@ describe('Get invoice', function() {
   })
 
   it('should return invoice details by InvoiceNo', function() {
-    return expresspay.getInvoiceDetailsErip({ "InvoiceNo": 10 })
+    return expresspay.getInvoiceDetailsERIP({ "InvoiceNo": 10 })
       .then(function(res) {
         console.log('Invoice details: ', res);
         res.should.have.property('AccountNo')
@@ -55,7 +55,7 @@ describe('Get invoice', function() {
   })
 
   it('should return invoice status by InvoiceNo', function() {
-    return expresspay.getInvoiceStatusErip({ "InvoiceNo": 10 })
+    return expresspay.getInvoiceStatusERIP({ "InvoiceNo": 10 })
       .then(function(res) {
         console.log(res)
         res.should.have.property('Status');
@@ -69,7 +69,7 @@ describe('Get invoice', function() {
 
 describe('Get payments', function() {
   it('should return payments list by params', function() {
-    return expresspay.getPaymentsListErip({})
+    return expresspay.getPaymentsListERIP({})
       .then(function(res) {
         console.log(res);
         res.should.have.property('Items');
@@ -81,7 +81,7 @@ describe('Get payments', function() {
   })
 
   it('should return payment details by PaymentNo', function() {
-    return expresspay.getPaymentDetailsErip({ "PaymentNo": 2 })
+    return expresspay.getPaymentDetailsERIP({ "PaymentNo": 2 })
       .then(function(res) {
         console.log('Payment details: ', res);
         res.should.have.property('AccountNo')
@@ -95,7 +95,7 @@ describe('Get payments', function() {
 
 describe('Cancel invoice', function() {
   it('should cancel invoice by InvoiceNo', function() {
-    return expresspay.cancelInvoiceErip({"InvoiceNo": 10})
+    return expresspay.cancelInvoiceERIP({"InvoiceNo": 10})
       .then(function(res) {
         console.log(res);
       })

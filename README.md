@@ -1,5 +1,5 @@
 # node-expresspay
-Node module for using Expresspay api.
+Node module for using Expresspay API.
 
 ```javascript
 var Expresspay = require('node-expresspay');
@@ -7,12 +7,12 @@ var Expresspay = require('node-expresspay');
 var expresspay = new Expresspay('https://api.express-pay.by/v1/', 'API-Key', 'Secret-Key');
 ```
 
-## Erip functions
+## ERIP functions
 
 ### Create invoice
 
 ```javascript
-expresspay.createInvoiceErip({
+expresspay.createInvoiceERIP({
   "AccountNo": 10, // required
   "Amount": 10, // required
   "Currency": 933, // required
@@ -41,7 +41,7 @@ expresspay.createInvoiceErip({
 ```
 ### Get invoices list by params
 ```javascript
-expresspay.getInvoicesListErip({
+expresspay.getInvoicesListERIP({
   "From": '20170110',
   "To": '20171210',
   "AccountNo": 100,
@@ -57,7 +57,7 @@ expresspay.getInvoicesListErip({
 
 ### Get invoice details
 ```javascript
-expresspay.getInvoiceDetailsErip({ 
+expresspay.getInvoiceDetailsERIP({ 
   "InvoiceNo": 10 // required
 })
 .then(function(res) {
@@ -70,7 +70,7 @@ expresspay.getInvoiceDetailsErip({
 
 ### Get invoice status
 ```javascript
-expresspay.getInvoiceStatusErip({
+expresspay.getInvoiceStatusERIP({
   "InvoiceNo": 10 // required
 })
 .then(function(res) {
@@ -83,7 +83,7 @@ expresspay.getInvoiceStatusErip({
 
 ### Get payments list
 ```javascript
-expresspay.getPaymentsListErip({
+expresspay.getPaymentsListERIP({
   "From": '20170110',
   "To": '20171210',
   "AccountNo": 100
@@ -98,7 +98,7 @@ expresspay.getPaymentsListErip({
 
 ### Get payment details
 ```javascript
-expresspay.getPaymentDetailsErip({
+expresspay.getPaymentDetailsERIP({
   "PaymentNo": 2 // required
 })
 .then(function(res) {
@@ -111,7 +111,7 @@ expresspay.getPaymentDetailsErip({
 
 ### Cancel invoice
 ```javascript
-expresspay.cancelInvoiceErip({
+expresspay.cancelInvoiceERIP({
   "InvoiceNo": 10 // required
 })
 .then(function(res) {
