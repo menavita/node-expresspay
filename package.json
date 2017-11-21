@@ -5,7 +5,8 @@
   "main": "index.js",
   "scripts": {
     "eriptest": "mocha --timeout 5000 test/erip.js",
-    "cardtest": "mocha --timeout 5000 test/card.js"
+    "cardtest": "mocha --timeout 5000 test/card.js",
+    "checktest": "mocha --timeout 5000 test/check.js"
   },
   "repository": {
     "type": "git",

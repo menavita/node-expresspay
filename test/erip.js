@@ -2,11 +2,11 @@ var should = require('should');
 var Expresspay = require('../');
 
 // with signature
-// var expresspay = new Expresspay('https://sandbox-api.express-pay.by/v1/', 'a75b74cbcfe446509e8ee874f421bd66', 'sandbox.expresspay.by');
+ var expresspay = new Expresspay('https://sandbox-api.express-pay.by/v1/', 'a75b74cbcfe446509e8ee874f421bd66', 'sandbox.expresspay.by');
 // no siganture
-var expresspay = new Expresspay('https://sandbox-api.express-pay.by/v1/', 'a75b74cbcfe446509e8ee874f421bd64');
+// var expresspay = new Expresspay('https://sandbox-api.express-pay.by/v1/', 'a75b74cbcfe446509e8ee874f421bd64', 'testtest', 'testtest');
 // production test account with signature
-// var expresspay = new Expresspay('https://api.express-pay.by/v1/', '2c57a2e73f26406cb3ac22f465ee3cb0', 'express-pay.by');
+// var expresspay = new Expresspay('https://api.express-pay.by/v1/', '2c57a2e73f26406cb3ac22f465ee3cb0', 'express-pay.by', 'express-pay.by');
 
 describe('Create ERIP payment', function() {
   it('should return invoice number', function() {
@@ -16,9 +16,8 @@ describe('Create ERIP payment', function() {
       "Currency": 933,
     })
     .then(function(res) {
-      console.log('Invoice number: ', res.InvoiceNo);
+      console.log(res);
       res.should.have.property('InvoiceNo');
-      InvoiceNo = res.InvoiceNo;
     })
     .catch(function(e) {
       console.log(e);

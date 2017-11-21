@@ -4,11 +4,12 @@ var request = require('request');
 var Q = require('q');
 var crypto = require('crypto');
 
-function Expresspay(url, token, secret_word) {
+function Expresspay(url, token, secret_word, return_secret_word) {
 
   this.url = url;
   this.token = token;
   this.secret_word = secret_word;
+  this.return_secret_word = return_secret_word;
 
 }
 
@@ -19,7 +20,7 @@ Expresspay.prototype.createInvoiceERIP = function(params) {
   request.post({
     uri: !this.secret_word 
       ? this.url + 'invoices/?token=' + this.token
-      : this.url + 'invoices/?token=' + this.token + '&signature=' + сreateSignature('create_invoice_erip', this.token, this.secret_word, params),
+      : this.url + 'invoices/?token=' + this.token + '&signature=' + this.createSignature('create_invoice_erip', params),
     form: params,
     encoding: 'UTF-8',
   }, function(err, res, body) {
@@ -56,7 +57,7 @@ Expresspay.prototype.getInvoicesListERIP = function(params) {
     uri: !this.secret_word 
     ? this.url + 'invoices/?token=' + this.token
       + '&From=' + params.From + '&To=' + params.To + '&AccountNo=' + params.AccountNo + '&Status=' + params.Status
-    : this.url + 'invoices/?token=' + this.token + '&signature=' + сreateSignature('get_invoices_list_erip', this.token, this.secret_word, params)
+    : this.url + 'invoices/?token=' + this.token + '&signature=' + this.createSignature('get_invoices_list_erip', params)
       + '&From=' + params.From + '&To=' + params.To + '&AccountNo=' + params.AccountNo + '&Status=' + params.Status,
     encoding: 'UTF-8',
   }, function(err, res, body) {
@@ -79,7 +80,7 @@ Expresspay.prototype.getInvoiceDetailsERIP = function(params) {
   request.get({
     uri: !this.secret_word 
       ? this.url + 'invoices/' + params.InvoiceNo + '?token=' + this.token
-      : this.url + 'invoices/' + params.InvoiceNo + '?token=' + this.token + '&signature=' + сreateSignature('get_invoice_details_erip', this.token, this.secret_word, params),
+      : this.url + 'invoices/' + params.InvoiceNo + '?token=' + this.token + '&signature=' + this.createSignature('get_invoice_details_erip', params),
     encoding: 'UTF-8',
   }, function(err, res, body) {
     body = JSON.parse(body);
@@ -101,7 +102,7 @@ Expresspay.prototype.getInvoiceStatusERIP = function(params) {
   request.get({
     uri: !this.secret_word 
       ? this.url + 'invoices/' + params.InvoiceNo + '/status?token=' + this.token
-      : this.url + 'invoices/' + params.InvoiceNo + '/status?token=' + this.token + '&signature=' + сreateSignature('get_invoice_status_erip', this.token, this.secret_word, params),
+      : this.url + 'invoices/' + params.InvoiceNo + '/status?token=' + this.token + '&signature=' + this.createSignature('get_invoice_status_erip', params),
     encoding: 'UTF-8',
   }, function(err, res, body) {
     body = JSON.parse(body);
@@ -136,7 +137,7 @@ Expresspay.prototype.getPaymentsListERIP = function(params) {
     uri: !this.secret_word 
     ? this.url + 'payments/?token=' + this.token
       + '&From=' + params.From + '&To=' + params.To + '&AccountNo=' + params.AccountNo
-    : this.url + 'payments/?token=' + this.token + '&signature=' + сreateSignature('get_payments_list_erip', this.token, this.secret_word, params)
+    : this.url + 'payments/?token=' + this.token + '&signature=' + this.createSignature('get_payments_list_erip', params)
       + '&From=' + params.From + '&To=' + params.To + '&AccountNo=' + params.AccountNo,
     encoding: 'UTF-8',
   }, function(err, res, body) {
@@ -149,7 +150,7 @@ Expresspay.prototype.getPaymentsListERIP = function(params) {
   })
 
   return d.promise;
-
+  
 }
 
 Expresspay.prototype.getPaymentDetailsERIP = function(params) {
@@ -159,7 +160,7 @@ Expresspay.prototype.getPaymentDetailsERIP = function(params) {
   request.get({
     uri: !this.secret_word 
       ? this.url + 'payments/' + params.PaymentNo + '?token=' + this.token
-      : this.url + 'payments/' + params.PaymentNo + '?token=' + this.token + '&signature=' + сreateSignature('get_payment_details_erip', this.token, this.secret_word, params),
+      : this.url + 'payments/' + params.PaymentNo + '?token=' + this.token + '&signature=' + this.createSignature('get_payment_details_erip', params),
     encoding: 'UTF-8',
   }, function(err, res, body) {
     body = JSON.parse(body);
@@ -181,7 +182,7 @@ Expresspay.prototype.cancelInvoiceERIP = function(params) {
   request.delete({
     uri: !this.secret_word 
       ? this.url + 'invoices/' + params.InvoiceNo + '/?token=' + this.token
-      : this.url + 'invoices/' + params.InvoiceNo + '/?token=' + this.token + '&signature=' + сreateSignature('cancel_invoice_erip', this.token, this.secret_word, params),
+      : this.url + 'invoices/' + params.InvoiceNo + '/?token=' + this.token + '&signature=' + this.createSignature('cancel_invoice_erip', params),
     encoding: 'UTF-8',
   }, function(err, res, body) {
     body = JSON.parse(body);
@@ -203,7 +204,7 @@ Expresspay.prototype.createInvoiceCard = function(params) {
   request.post({
     uri: !this.secret_word 
       ? this.url + 'cardinvoices/?token=' + this.token
-      : this.url + 'cardinvoices/?token=' + this.token + '&signature=' + сreateSignature('create_invoice_card', this.token, this.secret_word, params),
+      : this.url + 'cardinvoices/?token=' + this.token + '&signature=' + this.createSignature('create_invoice_card', params),
     encoding: 'UTF-8',
     form: params,
   }, function(err, res, body) {
@@ -226,7 +227,7 @@ Expresspay.prototype.getInvoiceFormCard = function(params) {
   request.get({
     uri: !this.secret_word 
       ? this.url + 'cardinvoices/' + params.InvoiceId + '/payment/?token=' + this.token
-      : this.url + 'cardinvoices/' + params.InvoiceId + '/payment/?token=' + this.token + '&signature=' + сreateSignature('get_invoice_form_card', this.token, this.secret_word, params),
+      : this.url + 'cardinvoices/' + params.InvoiceId + '/payment/?token=' + this.token + '&signature=' + this.createSignature('get_invoice_form_card', params),
     encoding: 'UTF-8',
   }, function(err, res, body) {
     body = JSON.parse(body);
@@ -248,7 +249,7 @@ Expresspay.prototype.getInvoiceStatusCard = function(params) {
   request.get({
     uri: !this.secret_word 
       ? this.url + 'cardinvoices/' + params.InvoiceId + '/status/?token=' + this.token
-      : this.url + 'cardinvoices/' + params.InvoiceId + '/status/?token=' + this.token + '&signature=' + сreateSignature('get_invoice_status_card', this.token, this.secret_word, params),
+      : this.url + 'cardinvoices/' + params.InvoiceId + '/status/?token=' + this.token + '&signature=' + this.createSignature('get_invoice_status_card', params),
     encoding: 'UTF-8',
   }, function(err, res, body) {
     body = JSON.parse(body);
@@ -270,7 +271,7 @@ Expresspay.prototype.reverseInvoiceCard = function(params) {
   request.post({
     uri: !this.secret_word 
       ? this.url + 'cardinvoices/' + params.InvoiceId + '/reverse/?token=' + this.token
-      : this.url + 'cardinvoices/' + params.InvoiceId + '/reverse/?token=' + this.token + '&signature=' + сreateSignature('reverse_invoice_card', this.token, this.secret_word, params),
+      : this.url + 'cardinvoices/' + params.InvoiceId + '/reverse/?token=' + this.token + '&signature=' + this.createSignature('reverse_invoice_card', params),
     encoding: 'UTF-8',
   }, function(err, res, body) {
     body = JSON.parse(body);
@@ -285,7 +286,17 @@ Expresspay.prototype.reverseInvoiceCard = function(params) {
 
 }
 
-function сreateSignature(type, token, secret_word, data) {
+Expresspay.prototype.checkSignature = function(params, signature) {
+
+  if (signature == crypto.createHmac('sha1', this.return_secret_word).update(params, 'utf8').digest('hex').toUpperCase()) {
+    return true;
+  } else {
+    return false
+  }
+
+}
+
+Expresspay.prototype.createSignature = function(type, data) {
   
   var values = {
     "create_invoice_erip": [
@@ -326,7 +337,7 @@ function сreateSignature(type, token, secret_word, data) {
       "AccountNo"
     ],
     "get_payment_details_erip": [
-      "AccountNo"
+      "PaymentNo"
     ],
     "cancel_invoice_erip": [
       "InvoiceNo"
@@ -340,6 +351,7 @@ function сreateSignature(type, token, secret_word, data) {
       "ReturnUrl",
       "FailUrl",
       "Language",
+      "PageView",
       "SessionTimeoutSecs",
       "ExpirationDate",
     ],
@@ -354,15 +366,16 @@ function сreateSignature(type, token, secret_word, data) {
     ]
   }
 
-  var result = token;
+  var result = this.token;
 
   if(Object.keys(data).length) {
     values[type].forEach(function(item) {
       if (data.hasOwnProperty(item)) result += data[item];
     });
   }
-  
-  return crypto.createHmac('sha1', secret_word).update(result).digest('hex').toUpperCase();
+  console.log(result);
+  console.log(crypto.createHmac('sha1', this.secret_word).update(result, 'utf8').digest('hex').toUpperCase());
+  return crypto.createHmac('sha1', this.secret_word).update(result, 'utf8').digest('hex').toUpperCase();
 }
 
 module.exports = Expresspay;

@@ -2,16 +2,16 @@ var should = require('should');
 var Expresspay = require('../');
 
 // with signature
-// var expresspay = new Expresspay('https://sandbox-api.express-pay.by/v1/', 'a75b74cbcfe446509e8ee874f421bd66', 'sandbox.expresspay.by');
+// var expresspay = new Expresspay('https://sandbox-api.express-pay.by/v1/', 'a75b74cbcfe446509e8ee874f421bd66', 'sandbox.expresspay.by', 'testtest');
 // no siganture
-var expresspay = new Expresspay('https://sandbox-api.express-pay.by/v1/', 'a75b74cbcfe446509e8ee874f421bd64');
+var expresspay = new Expresspay('https://sandbox-api.express-pay.by/v1/', 'a75b74cbcfe446509e8ee874f421bd64', 'testtest', 'testtest');
 // production test account with signature
-// var expresspay = new Expresspay('https://api.express-pay.by/v1/', '2c57a2e73f26406cb3ac22f465ee3cb0', 'express-pay.by');
+// var expresspay = new Expresspay('https://api.express-pay.by/v1/', '2c57a2e73f26406cb3ac22f465ee3cb0', 'express-pay.by', 'express-pay.by');
 
 describe('Create card payment', function() {
   it('should return invoice number', function() {
     return expresspay.createInvoiceCard({
-      "AccountNo": "123456",
+      "AccountNo": "12345",
       "Expiration": "20161224",
       "Amount": '10',
       "Currency": '933',
@@ -19,6 +19,7 @@ describe('Create card payment', function() {
       "ReturnUrl": 'https://example.com/success',
       "FailUrl": 'https://example.com/fail',
       "Language": 'ru',
+      "PageView": "DESKTOP",
       "SessionTimeoutSecs": '2000',
       "ExpirationDate": '20161224235001'
     })

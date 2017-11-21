@@ -4,10 +4,11 @@ Node module for using Expresspay API.
 ```javascript
 var Expresspay = require('node-expresspay');
 
-var expresspay = new Expresspay('https://api.express-pay.by/v1/', 'API-Key', 'Secret-Key');
+var expresspay = new Expresspay('https://api.express-pay.by/v1/', 'API-Key', 'Secret-Key', 'Return-Secret-Key');
 ```
 
 ## ERIP functions
+Signature included.
 
 ### Create invoice
 
@@ -122,7 +123,7 @@ expresspay.cancelInvoiceERIP({
 })
 ```
 ## Card functions
-
+Signature included.
 ### Create invoice
 ```javascript
 expresspay.createInvoiceCard({
@@ -185,10 +186,48 @@ expresspay.reverseInvoiceCard({
 })
 ```
 
+## Signature functions
+### Create signature
+Return signtaure as string.
+```javascript
+expresspay.createSignature(type, data)
+var signature = expresspay.createSignature('create_invoice_erip',
+{
+  "AccountNo": 26,
+  "Amount": '10',
+  "Currency": '933',
+  "Info": 'testtest',
+  "ReturnUrl": 'https://example.com/success',
+  "FailUrl": 'https://example.com/fail',
+});
+```
+Types
+|Function               |String                    |
+|-----------------------|:------------------------:|
+|createInvoiceERIP      |create_invoice_erip       |
+|getInvoicesListERIP    |get_invoices_list_erip    |
+|getInvoiceDetailsERIP  |get_invoice_details_erip  |
+|getInvoiceStatusERIP   |get_invoice_status_erip   |
+|getPaymentsListERIP    |get_payments_list_erip    |
+|getPaymentDetailsERIP  |get_payment_details       |
+|cancelInvoiceERIP      |create_invoice_card       |
+|cancelInvoiceERIP      |get_invoice_form_card     |
+|cancelInvoiceERIP      |get_invoice_status_card   |
+|cancelInvoiceERIP      |reverse_invoice_card      |
+
+### Check signature
+Return true or false
+```javascript
+expresspay.checkSignature(data, signature);
+var check = expresspay.checkSignature('{"CmdType":1,"AccountNo":"123456789","PaymentNo":123,"Amount":"100000","Created":"20171121162605","Service":"Ремонт бытовой техники","Payer":"Иванов Петр Анатольевич","Address":"г. Минск, ул. Автозаводская, д.1, кв. 65"}', '7307D720623523CABB3C291AB1D9A683FFB711BB');
+
+```
+
 ## Tests
 ```bash
 npm run eriptest
 npm run cardtest
+npm run checktest
 ```
 
 ## License
